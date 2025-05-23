@@ -18,11 +18,11 @@ export const SideBarComponent = ({
     ];
 
     const sortOptions = [
-        { value: '', label: 'Seleccionar...' },
-        { value: 'population', label: 'Población' },
-        { value: 'area', label: 'Área' },
-        { value: 'region', label: 'Región' },
-        { value: 'name', label: 'Nombre' }
+        { value: '', label: 'Select...' },
+        { value: 'population', label: 'Population' },
+        { value: 'area', label: 'Area' },
+        { value: 'region', label: 'Region' },
+        { value: 'name', label: 'Name' }
     ];
 
     const handleSortChange = (value) => {
@@ -42,9 +42,9 @@ export const SideBarComponent = ({
     };
 
     return (
-        <section className="text-white w-64 p-4 space-y-6">
+        <section className="text-white w-80 p-4 space-y-6">
             <div className="my-8">
-                <h3 className="font-semibold">Ordenar por</h3>
+                <h3 className="font-semibold">Sort by</h3>
                 <select
                     value={selectedSort}
                     onChange={(e) => handleSortChange(e.target.value)}
@@ -60,7 +60,7 @@ export const SideBarComponent = ({
 
             <div className="my-8">
                 <h3 className="font-semibold">
-                    Regiones {selectedRegions.length > 0 && `(${selectedRegions.length})`}
+                    Regions {selectedRegions.length > 0 && `(${selectedRegions.length})`}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                     {regions.map(region => (
@@ -81,17 +81,15 @@ export const SideBarComponent = ({
             <div className="my-8">
                 <h3 className="font-semibold">Status</h3>
                 <div className="my-2">
-
                     <label className="flex items-center cursor-pointer">
                         <input
                             type="checkbox"
                             checked={filters.unMember}
                             onChange={handleStatusChange('unMember')}
-                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                            className="w-4 h-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                         />
                         <span className="text-xs ml-2">Member of the United Nations</span>
                     </label>
-
                 </div>
                 <div className="my-2">
                     <label className="flex items-center cursor-pointer">
@@ -99,7 +97,7 @@ export const SideBarComponent = ({
                             type="checkbox"
                             checked={filters.independent}
                             onChange={handleStatusChange('independent')}
-                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
+                            className="w-4 h-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                         />
                         <span className="text-xs ml-2">Independent</span>
                     </label>

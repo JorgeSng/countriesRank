@@ -7,7 +7,7 @@ export const HeaderComponent = ({totalCountries, searchTerm, onSearchChange}) =>
                     type="text"
                     value={searchTerm}
                     onChange={(e) => onSearchChange(e.target.value)}
-                    placeholder="Buscar país..."
+                    placeholder="Search country..."
                     className="w-full px-4 py-2 rounded bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
                 />
             </div>

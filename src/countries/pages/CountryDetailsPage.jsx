@@ -22,7 +22,7 @@ export const CountryDetailsPage = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen text-white">
-        <div className="text-2xl">Cargando...</div>
+        <div className="text-2xl">Loading...</div>
       </div>
     );
   }
@@ -30,12 +30,12 @@ export const CountryDetailsPage = () => {
   if (isError || !countryDetails) {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen text-white">
-        <div className="text-2xl mb-4">Error al cargar los datos del país</div>
+        <div className="text-2xl mb-4">Error loading country data</div>
         <button 
           onClick={handleBack}
           className="text-gray-100 hover:text-gray-400 transition cursor-pointer"
         >
-          ← Volver
+          ← Back
         </button>
       </div>
     );
@@ -47,14 +47,14 @@ export const CountryDetailsPage = () => {
         onClick={handleBack}
         className="text-gray-100 hover:text-gray-400 transition cursor-pointer"
       >
-        ← Volver
+        ← Back
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
         <div className="space-y-6">
           <img 
             src={countryDetails.flags?.svg || countryDetails.flags?.png} 
-            alt={countryDetails.flags?.alt || `Bandera de ${countryDetails.name?.common}`}
+            alt={countryDetails.flags?.alt || `Flag of ${countryDetails.name?.common}`}
             className="w-full rounded-lg shadow-lg"
           />
           <div className="bg-gray-800 p-6 rounded-lg">
@@ -66,32 +66,32 @@ export const CountryDetailsPage = () => {
                 <p className="font-semibold">{countryDetails.capital?.[0] || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-gray-400">Región</p>
+                <p className="text-gray-400">Region</p>
                 <p className="font-semibold">{countryDetails.region || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-gray-400">Subregión</p>
+                <p className="text-gray-400">Subregion</p>
                 <p className="font-semibold">{countryDetails.subregion || 'N/A'}</p>
               </div>
               <div>
-                <p className="text-gray-400">Población</p>
+                <p className="text-gray-400">Population</p>
                 <p className="font-semibold">{countryDetails.population?.toLocaleString() || 'N/A'}</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Columna derecha - Información adicional */}
+        {/* Right column - Additional information */}
         <div className="space-y-6">
           <div className="bg-gray-800 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Información Adicional</h3>
+            <h3 className="text-xl font-semibold mb-4">Additional Information</h3>
             <div className="space-y-4">
               <div>
-                <p className="text-gray-400">Área</p>
+                <p className="text-gray-400">Area</p>
                 <p className="font-semibold">{countryDetails.area?.toLocaleString() || 'N/A'} km²</p>
               </div>
               <div>
-                <p className="text-gray-400">Monedas</p>
+                <p className="text-gray-400">Currencies</p>
                 <div className="font-semibold">
                   {countryDetails.currencies ? 
                     Object.values(countryDetails.currencies).map(currency => (
@@ -104,7 +104,7 @@ export const CountryDetailsPage = () => {
                 </div>
               </div>
               <div>
-                <p className="text-gray-400">Idiomas</p>
+                <p className="text-gray-400">Languages</p>
                 <div className="font-semibold">
                   {countryDetails.languages ? 
                     Object.values(countryDetails.languages).join(', ')
@@ -113,15 +113,15 @@ export const CountryDetailsPage = () => {
                 </div>
               </div>
               <div>
-                <p className="text-gray-400">Estado</p>
+                <p className="text-gray-400">Status</p>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <div className={`w-3 h-3 rounded-full ${countryDetails.unMember ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                    <span>Miembro de la ONU</span>
+                    <span>UN Member</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <div className={`w-3 h-3 rounded-full ${countryDetails.independent ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                    <span>País Independiente</span>
+                    <span>Independent Country</span>
                   </div>
                 </div>
               </div>
@@ -130,14 +130,14 @@ export const CountryDetailsPage = () => {
 
           {countryDetails.maps?.googleMaps && (
             <div className="bg-gray-800 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-4">Ubicación</h3>
+              <h3 className="text-xl font-semibold mb-4">Location</h3>
               <a 
                 href={countryDetails.maps.googleMaps} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 flex items-center gap-2"
               >
-                Ver en Google Maps
+                View on Google Maps
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>

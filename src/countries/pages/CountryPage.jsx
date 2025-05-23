@@ -31,7 +31,7 @@ export const CountryPage = () => {
     }, [handleDataUpdate]);
 
     if (isLoading) {
-        return <div className="text-white text-center mt-10">Cargando países...</div>;
+        return <div className="text-white text-center mt-10">Loading countries...</div>;
     }
 
     const displayCountries = Array.isArray(countries) ? countries : countries?.countries || [];
