@@ -4,13 +4,21 @@ export const countryReducer = (state = {
     filters: {
         unMember: false,
         independent: false
-    }
+    },
+    searchTerm: ''
 }, action) => {
     switch (action.type) {
         case '[COUNTRIES] Add Countries': {
             return {
                 ...state,
                 countries: action.payload || []
+            };
+        }
+
+        case '[COUNTRIES] Set Search Term': {
+            return {
+                ...state,
+                searchTerm: action.payload
             };
         }
 

@@ -8,13 +8,21 @@ export const useCountries = () => {
         filters: {
             unMember: false,
             independent: false
-        }
+        },
+        searchTerm: ''
     });
 
     const setCountries = useCallback((data) => {
         dispatch({
             type: "[COUNTRIES] Add Countries",
             payload: data
+        });
+    }, []);
+
+    const setSearchTerm = useCallback((term) => {
+        dispatch({
+            type: "[COUNTRIES] Set Search Term",
+            payload: term
         });
     }, []);
 
@@ -42,6 +50,13 @@ export const useCountries = () => {
     const filteredCountries = useMemo(() => {
         let filtered = state.countries;
 
+        if (state.searchTerm) {
+            const searchLower = state.searchTerm.toLowerCase();
+            filtered = filtered.filter(country => 
+                country.name.common.toLowerCase().includes(searchLower)
+            );
+        }
+
         if (state.selectedRegions.length > 0) {
             filtered = filtered.filter(country => 
                 state.selectedRegions.includes(country.region)
@@ -57,13 +72,15 @@ export const useCountries = () => {
         }
 
         return filtered;
-    }, [state.countries, state.selectedRegions, state.filters]);
+    }, [state.countries, state.selectedRegions, state.filters, state.searchTerm]);
 
     return {
         countries: filteredCountries,
         selectedRegions: state.selectedRegions,
         filters: state.filters,
+        searchTerm: state.searchTerm,
         setCountries,
+        setSearchTerm,
         sortBy,
         filterByRegion,
         toggleStatusFilter

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export const SideBarComponent = ({ 
-    sortBy, 
-    filterByRegion, 
-    selectedRegions = [], 
+export const SideBarComponent = ({
+    sortBy,
+    filterByRegion,
+    selectedRegions = [],
     filters = {},
-    toggleStatusFilter 
+    toggleStatusFilter
 }) => {
     const [selectedSort, setSelectedSort] = useState('');
 
@@ -43,7 +43,7 @@ export const SideBarComponent = ({
 
     return (
         <section className="text-white w-64 p-4 space-y-6">
-            <div className="space-y-2">
+            <div className="my-8">
                 <h3 className="font-semibold">Ordenar por</h3>
                 <select
                     value={selectedSort}
@@ -58,7 +58,7 @@ export const SideBarComponent = ({
                 </select>
             </div>
 
-            <div className="space-y-2">
+            <div className="my-8">
                 <h3 className="font-semibold">
                     Regiones {selectedRegions.length > 0 && `(${selectedRegions.length})`}
                 </h3>
@@ -67,11 +67,10 @@ export const SideBarComponent = ({
                         <button
                             key={region}
                             onClick={() => handleRegionClick(region)}
-                            className={`px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 transform hover:scale-105 ${
-                                selectedRegions.includes(region)
+                            className={`px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 transform hover:scale-105 ${selectedRegions.includes(region)
                                     ? 'bg-blue-600 hover:bg-blue-700 shadow-lg'
                                     : 'bg-gray-700 hover:bg-gray-600'
-                            }`}
+                                }`}
                         >
                             {region}
                         </button>
@@ -79,26 +78,30 @@ export const SideBarComponent = ({
                 </div>
             </div>
 
-            <div className="space-y-3">
-                <h3 className="font-semibold">Estado</h3>
-                <div className="space-y-2">
-                    <label className="flex items-center space-x-2 cursor-pointer">
+            <div className="my-8">
+                <h3 className="font-semibold">Status</h3>
+                <div className="my-2">
+
+                    <label className="flex items-center cursor-pointer">
                         <input
                             type="checkbox"
                             checked={filters.unMember}
                             onChange={handleStatusChange('unMember')}
-                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                         />
-                        <span>Miembro de las Naciones Unidas</span>
+                        <span className="text-xs ml-2">Member of the United Nations</span>
                     </label>
-                    <label className="flex items-center space-x-2 cursor-pointer">
+
+                </div>
+                <div className="my-2">
+                    <label className="flex items-center cursor-pointer">
                         <input
                             type="checkbox"
                             checked={filters.independent}
                             onChange={handleStatusChange('independent')}
-                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
                         />
-                        <span>País Independiente</span>
+                        <span className="text-xs ml-2">Independent</span>
                     </label>
                 </div>
             </div>

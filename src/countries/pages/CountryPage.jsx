@@ -12,7 +12,9 @@ export const CountryPage = () => {
         countries, 
         selectedRegions, 
         filters,
+        searchTerm,
         setCountries, 
+        setSearchTerm,
         sortBy, 
         filterByRegion,
         toggleStatusFilter 
@@ -36,7 +38,11 @@ export const CountryPage = () => {
 
     return (
         <div className='container mx-auto max-w-7xl px-4'>
-            <HeaderComponent totalCountries={displayCountries.length} />
+            <HeaderComponent 
+                totalCountries={displayCountries.length} 
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+            />
             <div className="pt-12 flex">
                 <SideBarComponent 
                     sortBy={sortBy}
