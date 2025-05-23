@@ -2,7 +2,7 @@ export const GridComponent = ({ countriesList = [] }) => {
     const countries = Array.isArray(countriesList) ? countriesList : countriesList?.countries || [];
 
     return (
-        <div className="w-full max-w-4xl pl-8">
+        <div className="w-full pl-8">
             <div className="grid grid-cols-5 bg-gray-800 text-gray-400 text-sm font-semibold py-2 px-4 rounded-t-md border-b border-gray-200">
                 <div>Flag</div>
                 <div>Name</div>

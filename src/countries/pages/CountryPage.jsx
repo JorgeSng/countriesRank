@@ -6,6 +6,7 @@ import { GridComponent } from "../components/grid/GridComponent";
 import { useCountries } from "../hooks/useCountry.js";
 
 export const CountryPage = () => {
+
     const { data: countriesData, isLoading } = useGetCountriesQuery();
     const { 
         countries, 
@@ -34,7 +35,7 @@ export const CountryPage = () => {
     const displayCountries = Array.isArray(countries) ? countries : countries?.countries || [];
 
     return (
-        <>
+        <div className='container mx-auto max-w-7xl px-4'>
             <HeaderComponent totalCountries={displayCountries.length} />
             <div className="pt-12 flex">
                 <SideBarComponent 
@@ -46,7 +47,7 @@ export const CountryPage = () => {
                 />
                 <GridComponent countriesList={displayCountries}/>
             </div>
-        </>
+        </div>
     );
 }
 
