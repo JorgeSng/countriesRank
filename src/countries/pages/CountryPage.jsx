@@ -1,0 +1,52 @@
+import { useCallback, useEffect } from 'react';
+import { useGetCountriesQuery } from "../../store/api/countriesApi.js";
+import { HeaderComponent } from "../components/header/HeaderComponent";
+import { SideBarComponent } from "../components/sidebar/SideBarComponent";
+import { GridComponent } from "../components/grid/GridComponent";
+import { useCountries } from "../hooks/useCountry.js";
+
+export const CountryPage = () => {
+    const { data: countriesData, isLoading } = useGetCountriesQuery();
+    const { 
+        countries, 
+        selectedRegions, 
+        filters,
+        setCountries, 
+        sortBy, 
+        filterByRegion,
+        toggleStatusFilter 
+    } = useCountries();
+
+    const handleDataUpdate = useCallback(() => {
+        if (countriesData) {
+            setCountries(countriesData);
+        }
+    }, [countriesData, setCountries]);
+
+    useEffect(() => {
+        handleDataUpdate();
+    }, [handleDataUpdate]);
+
+    if (isLoading) {
+        return <div className="text-white text-center mt-10">Cargando países...</div>;
+    }
+
+    const displayCountries = Array.isArray(countries) ? countries : countries?.countries || [];
+
+    return (
+        <>
+            <HeaderComponent totalCountries={displayCountries.length} />
+            <div className="pt-12 flex">
+                <SideBarComponent 
+                    sortBy={sortBy}
+                    filterByRegion={filterByRegion}
+                    selectedRegions={selectedRegions}
+                    filters={filters}
+                    toggleStatusFilter={toggleStatusFilter}
+                />
+                <GridComponent countriesList={displayCountries}/>
+            </div>
+        </>
+    );
+}
+
