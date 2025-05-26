@@ -34,9 +34,7 @@ export const countryReducer = (state = {
                     case 'area':
                         return (b.area || 0) - (a.area || 0);
                     case 'region': {
-                        // Primero ordenamos por región
                         const regionComparison = a.region.localeCompare(b.region);
-                        // Si son de la misma región (regionComparison === 0), ordenamos por nombre
                         if (regionComparison === 0) {
                             return a.name.common.localeCompare(b.name.common);
                         }

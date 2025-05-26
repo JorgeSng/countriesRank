@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { CheckBoxComponent } from "./CheckBoxComponent";
+import { SelectComponent } from "./SelectComponent";
+import { RegionsComponent } from "./RegionsComponent";
 
 export const SideBarComponent = ({
     sortBy,
@@ -41,41 +43,27 @@ export const SideBarComponent = ({
     const handleStatusChange = (filterType, checked) => {
         toggleStatusFilter(filterType, checked);
     };
+
     return (
         <section className="text-white w-80 p-4 space-y-6">
             <div className="my-8">
-                <h3 className="font-semibold">Sort by</h3>
-                <select
+                <h3 className="font-semibold mb-2">Sort by</h3>
+                <SelectComponent
                     value={selectedSort}
-                    onChange={(e) => handleSortChange(e.target.value)}
-                    className="w-full px-4 py-2 rounded bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500"
-                >
-                    {sortOptions.map(option => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
+                    options={sortOptions}
+                    onChangeValue={handleSortChange}
+                />
             </div>
 
             <div className="my-8">
-                <h3 className="font-semibold">
+                <h3 className="font-semibold mb-2">
                     Regions {selectedRegions.length > 0 && `(${selectedRegions.length})`}
                 </h3>
-                <div className="flex flex-wrap gap-2">
-                    {regions.map(region => (
-                        <button
-                            key={region}
-                            onClick={() => handleRegionClick(region)}
-                            className={`px-3 py-1 text-sm font-medium rounded-full transition-all duration-200 transform hover:scale-105 ${selectedRegions.includes(region)
-                                    ? 'bg-blue-600 hover:bg-blue-700 shadow-lg'
-                                    : 'bg-gray-700 hover:bg-gray-600'
-                                }`}
-                        >
-                            {region}
-                        </button>
-                    ))}
-                </div>
+                <RegionsComponent
+                    regions={regions}
+                    selectedRegions={selectedRegions}
+                    onRegionClick={handleRegionClick}
+                />
             </div>
 
             <div className="my-8">
@@ -93,5 +81,5 @@ export const SideBarComponent = ({
             </div>
         </section>
     );
-}
+};
 
