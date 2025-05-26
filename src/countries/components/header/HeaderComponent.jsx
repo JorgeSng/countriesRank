@@ -1,8 +1,8 @@
 export const HeaderComponent = ({totalCountries, searchTerm, onSearchChange}) => {
     return (
-        <header className="flex place-content-between items-center text-white">
-            <h3>Found {totalCountries} countries</h3>
-            <div className="w-64">
+        <header className="flex flex-col md:flex-row md:place-content-between gap-4 md:items-center text-white">
+            <h3 className="text-lg font-medium">Found {totalCountries} countries</h3>
+            <div className="w-full md:w-64">
                 <input
                     type="text"
                     value={searchTerm}

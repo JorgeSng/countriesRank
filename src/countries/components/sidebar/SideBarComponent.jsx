@@ -45,9 +45,9 @@ export const SideBarComponent = ({
     };
 
     return (
-        <section className="text-white w-80 p-4 space-y-6">
-            <div className="my-8">
-                <h3 className="font-semibold mb-2">Sort by</h3>
+        <section className="text-white bg-gray-800 md:bg-transparent rounded-lg md:rounded-none md:pr-6 space-y-4 md:space-y-6">
+            <div>
+                <h3 className="font-semibold mb-2 text-sm md:text-base">Sort by</h3>
                 <SelectComponent
                     value={selectedSort}
                     options={sortOptions}
@@ -55,8 +55,8 @@ export const SideBarComponent = ({
                 />
             </div>
 
-            <div className="my-8">
-                <h3 className="font-semibold mb-2">
+            <div>
+                <h3 className="font-semibold mb-2 text-sm md:text-base">
                     Regions {selectedRegions.length > 0 && `(${selectedRegions.length})`}
                 </h3>
                 <RegionsComponent
@@ -66,8 +66,8 @@ export const SideBarComponent = ({
                 />
             </div>
 
-            <div className="my-8">
-                <h3 className="font-semibold">Status</h3>
+            <div>
+                <h3 className="font-semibold mb-2 text-sm md:text-base">Status</h3>
                 <CheckBoxComponent
                     title="Member of the United Nations"
                     checked={filters.unMember || false}

@@ -43,15 +43,19 @@ export const CountryPage = () => {
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
             />
-            <div className="pt-12 flex">
-                <SideBarComponent 
-                    sortBy={sortBy}
-                    filterByRegion={filterByRegion}
-                    selectedRegions={selectedRegions}
-                    filters={filters}
-                    toggleStatusFilter={toggleStatusFilter}
-                />
-                <GridComponent countriesList={displayCountries}/>
+            <div className="pt-12 flex flex-col md:flex-row gap-6 md:gap-0">
+                <div className="w-full md:w-80">
+                    <SideBarComponent 
+                        sortBy={sortBy}
+                        filterByRegion={filterByRegion}
+                        selectedRegions={selectedRegions}
+                        filters={filters}
+                        toggleStatusFilter={toggleStatusFilter}
+                    />
+                </div>
+                <div className="w-full">
+                    <GridComponent countriesList={displayCountries}/>
+                </div>
             </div>
         </div>
     );
