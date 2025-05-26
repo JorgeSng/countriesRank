@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CheckBoxComponent } from "./CheckBoxComponent";
 
 export const SideBarComponent = ({
     sortBy,
@@ -37,10 +38,9 @@ export const SideBarComponent = ({
         filterByRegion(region, !isSelected);
     };
 
-    const handleStatusChange = (filterType) => (e) => {
-        toggleStatusFilter(filterType, e.target.checked);
+    const handleStatusChange = (filterType, checked) => {
+        toggleStatusFilter(filterType, checked);
     };
-
     return (
         <section className="text-white w-80 p-4 space-y-6">
             <div className="my-8">
@@ -80,28 +80,16 @@ export const SideBarComponent = ({
 
             <div className="my-8">
                 <h3 className="font-semibold">Status</h3>
-                <div className="my-2">
-                    <label className="flex items-center cursor-pointer">
-                        <input
-                            type="checkbox"
-                            checked={filters.unMember}
-                            onChange={handleStatusChange('unMember')}
-                            className="w-4 h-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
-                        />
-                        <span className="text-xs ml-2">Member of the United Nations</span>
-                    </label>
-                </div>
-                <div className="my-2">
-                    <label className="flex items-center cursor-pointer">
-                        <input
-                            type="checkbox"
-                            checked={filters.independent}
-                            onChange={handleStatusChange('independent')}
-                            className="w-4 h-4 shrink-0 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer"
-                        />
-                        <span className="text-xs ml-2">Independent</span>
-                    </label>
-                </div>
+                <CheckBoxComponent
+                    title="Member of the United Nations"
+                    checked={filters.unMember || false}
+                    onChangeValue={(checked) => handleStatusChange('unMember', checked)}
+                />
+                <CheckBoxComponent
+                    title="Independent"
+                    checked={filters.independent || false}
+                    onChangeValue={(checked) => handleStatusChange('independent', checked)}
+                />
             </div>
         </section>
     );
