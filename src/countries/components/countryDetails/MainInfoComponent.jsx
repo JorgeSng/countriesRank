@@ -4,7 +4,7 @@ export const MainInfoComponent = ({countryDetails}) => {
       <div className="space-y-6">
           <img
               src={countryDetails.flags?.svg || countryDetails.flags?.png}
-              alt={countryDetails.flags?.alt || `Flag of ${countryDetails.name?.common}`}
+              alt={countryDetails.flags?.alt || `Flag of ${countryDetails.name?.common || ''}`}
               className="w-full rounded-lg shadow-lg"
           />
           <div className="bg-gray-800 p-6 rounded-lg">

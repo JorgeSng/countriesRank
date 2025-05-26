@@ -1,24 +1,5 @@
-import { memo, useMemo } from 'react';
 
-export const AdditionalInfoComponent = memo(({countryDetails}) => {
-    const currencies = useMemo(() => {
-        if (!countryDetails.currencies) return 'N/A';
-        return Object.values(countryDetails.currencies).map(currency => (
-            <div key={currency.name}>
-                {currency.name} ({currency.symbol})
-            </div>
-        ));
-    }, [countryDetails.currencies]);
-
-    const languages = useMemo(() => {
-        if (!countryDetails.languages) return 'N/A';
-        return Object.values(countryDetails.languages).join(', ');
-    }, [countryDetails.languages]);
-
-    const formattedArea = useMemo(() => {
-        return countryDetails.area?.toLocaleString() || 'N/A';
-    }, [countryDetails.area]);
-
+export const AdditionalInfoComponent = ({ countryDetails }) => {
     return (
         <div className="space-y-6">
             <div className="bg-gray-800 p-6 rounded-lg">
@@ -26,29 +7,39 @@ export const AdditionalInfoComponent = memo(({countryDetails}) => {
                 <div className="space-y-4">
                     <div>
                         <p className="text-gray-400">Area</p>
-                        <p className="font-semibold">{formattedArea} km²</p>
+                        <p className="font-semibold">{countryDetails.area?.toLocaleString() || 'N/A'} km²</p>
                     </div>
                     <div>
                         <p className="text-gray-400">Currencies</p>
                         <div className="font-semibold">
-                            {currencies}
+                            {countryDetails.currencies ?
+                                Object.values(countryDetails.currencies).map(currency => (
+                                    <div key={currency.name}>
+                                        {currency.name} ({currency.symbol})
+                                    </div>
+                                ))
+                                : 'N/A'
+                            }
                         </div>
                     </div>
                     <div>
                         <p className="text-gray-400">Languages</p>
                         <div className="font-semibold">
-                            {languages}
+                            {countryDetails.languages ?
+                                Object.values(countryDetails.languages).join(', ')
+                                : 'N/A'
+                            }
                         </div>
                     </div>
                     <div>
                         <p className="text-gray-400">Status</p>
                         <div className="space-y-2">
                             <div className="flex items-center gap-2">
-                                <div className={`w-3 h-3 rounded-full ${countryDetails.unMember ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                <div data-testid="status-dot" className={`w-3 h-3 rounded-full ${countryDetails.unMember ? 'bg-green-500' : 'bg-red-500'}`}></div>
                                 <span>UN Member</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <div className={`w-3 h-3 rounded-full ${countryDetails.independent ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                <div data-testid="status-dot" className={`w-3 h-3 rounded-full ${countryDetails.independent ? 'bg-green-500' : 'bg-red-500'}`}></div>
                                 <span>Independent Country</span>
                             </div>
                         </div>
@@ -74,4 +65,4 @@ export const AdditionalInfoComponent = memo(({countryDetails}) => {
             )}
         </div>
     );
-}); 
+}

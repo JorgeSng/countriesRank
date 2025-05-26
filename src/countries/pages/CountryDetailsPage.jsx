@@ -3,7 +3,7 @@ import { useGetCountryByCountryCodeQuery } from "../../store/api/countriesApi";
 import { useEffect, useState } from "react";
 import { CountryNeighborsComponent } from "../components/countryDetails/CountryNeighborsComponent";
 import { MainInfoComponent } from "../components/countryDetails/MainInfoComponent";
-import { AditionalInfoComponet } from "../components/countryDetails/AditionalInfoComponet";
+import { AdditionalInfoComponent } from "../components/countryDetails/AdditionalInfoComponent";
 
 export const CountryDetailsPage = () => {
   const navigate = useNavigate();
@@ -60,7 +60,7 @@ export const CountryDetailsPage = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
         <MainInfoComponent countryDetails={countryDetails} />
-        <AditionalInfoComponet countryDetails={countryDetails} />
+        <AdditionalInfoComponent countryDetails={countryDetails} />
       </div>
 
       <CountryNeighborsComponent borders={countryDetails.borders || []} />

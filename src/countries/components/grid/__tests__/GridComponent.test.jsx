@@ -1,67 +1,69 @@
-import { describe, test, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { GridComponent } from '../GridComponent';
-import { BrowserRouter } from 'react-router-dom';
+
+vi.mock('../GridItem', () => ({
+    GridItem: ({ country }) => (
+        <div data-testid="mock-grid-item">{country.name.common}</div>
+    ),
+}));
 
 const mockCountries = [
     {
-        cca2: 'ES',
-        name: { common: 'Spain' },
-        population: 47000000,
-        area: 505990,
-        region: 'Europe',
-        flags: { png: 'spain-flag.png' }
+        cca2: 'US',
+        name: { common: 'United States' },
+        flags: { png: 'https://flagcdn.com/us.png' },
+        population: 331002651,
+        area: 9833517,
+        region: 'Americas',
     },
     {
         cca2: 'FR',
         name: { common: 'France' },
-        population: 67000000,
+        flags: { png: 'https://flagcdn.com/fr.png' },
+        population: 67399000,
         area: 551695,
         region: 'Europe',
-        flags: { png: 'france-flag.png' }
-    }
+    },
 ];
 
 describe('GridComponent', () => {
-    test('should render headers correctly', () => {
-        render(
-            <BrowserRouter>
-                <GridComponent countriesList={mockCountries} />
-            </BrowserRouter>
-        );
-        
-        const headers = ['Flag', 'Name', 'Population', 'Area (km²)', 'Region'];
-        headers.forEach(header => {
-            expect(screen.getByText(header)).toBeInTheDocument();
-        });
+    it('should render desktop headers', () => {
+        render(<GridComponent countriesList={mockCountries} />);
+
+        expect(screen.getByText('Flag')).toBeInTheDocument();
+        expect(screen.getByText('Name')).toBeInTheDocument();
+        expect(screen.getByText('Population')).toBeInTheDocument();
+        expect(screen.getByText('Area (km²)')).toBeInTheDocument();
+        expect(screen.getByText('Region')).toBeInTheDocument();
     });
 
-    test('should render a GridItem for each country', () => {
-        render(
-            <BrowserRouter>
-                <GridComponent countriesList={mockCountries} />
-            </BrowserRouter>
-        );
+    it('should render mobile headers', () => {
+        render(<GridComponent countriesList={mockCountries} />);
 
-        mockCountries.forEach(country => {
-            expect(screen.getByText(country.name.common)).toBeInTheDocument();
-        });
-
-        const countryElements = screen.getAllByRole('link');
-        expect(countryElements).toHaveLength(mockCountries.length);
+        expect(screen.getByText('Info')).toBeInTheDocument();
+        expect(screen.getByText('Details')).toBeInTheDocument();
     });
 
-    test('should handle empty country list', () => {
-        render(
-            <BrowserRouter>
-                <GridComponent countriesList={[]} />
-            </BrowserRouter>
-        );
+    it('should render a GridItem for each country', () => {
+        render(<GridComponent countriesList={mockCountries} />);
 
-        const headers = screen.getByText('Flag');
-        expect(headers).toBeInTheDocument();
- 
-        const countryElements = screen.queryAllByRole('link');
-        expect(countryElements).toHaveLength(0);
+        const items = screen.getAllByTestId('mock-grid-item');
+        expect(items.length).toBe(mockCountries.length);
+        expect(items[0]).toHaveTextContent('United States');
+        expect(items[1]).toHaveTextContent('France');
     });
-}); 
+
+    it('should handle countriesList wrapped in object under "countries" key', () => {
+        render(<GridComponent countriesList={{ countries: mockCountries }} />);
+
+        const items = screen.getAllByTestId('mock-grid-item');
+        expect(items.length).toBe(mockCountries.length);
+    });
+
+    it('should render nothing if countriesList is empty', () => {
+        render(<GridComponent countriesList={[]} />);
+
+        expect(screen.queryAllByTestId('mock-grid-item').length).toBe(0);
+    });
+});
