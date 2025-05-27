@@ -16,7 +16,7 @@ export const BorderCountryCardComponent = ({ countryCode }) => {
     if (isLoading) {
         return (
             <div className="bg-gray-800 rounded-lg p-4">
-                <div className="w-full h-24 bg-gray-700 rounded-md mb-3 animate-pulse"></div>
+                <div data-testid="loading-skeleton" className="w-full h-24 bg-gray-700 rounded-md mb-3 animate-pulse"></div>
                 <div className="h-4 bg-gray-700 rounded w-3/4 mx-auto animate-pulse"></div>
             </div>
         );

@@ -4,6 +4,7 @@ export const GridItem = ({country}) => {
     return (
         <Link to={`/details/${country.cca2}`}>
             <div className="grid grid-cols-2 md:grid-cols-5 py-2 px-4 items-center text-white hover:bg-gray-700 transition duration-200">
+                {/* Versión móvil */}
                 <div className="flex items-center gap-3 md:hidden">
                     <img
                         src={country.flags.png}
@@ -20,6 +21,7 @@ export const GridItem = ({country}) => {
                     <div className="text-sm text-gray-400">{country.area?.toLocaleString() || 'N/A'} km²</div>
                 </div>
 
+                {/* Versión desktop */}
                 <div className="hidden md:flex items-center">
                     <img
                         src={country.flags.png}

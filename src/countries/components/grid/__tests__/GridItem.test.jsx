@@ -12,50 +12,44 @@ const mockCountry = {
     region: 'Americas',
 };
 
-const renderComponent = (country = mockCountry) => {
-    return render(
-        <MemoryRouter>
-            <GridItem country={country} />
-        </MemoryRouter>
-    );
-};
-
 describe('GridItem', () => {
-    it('should render country name and region', () => {
-        renderComponent();
+    it('should render country name, flag, population, area and region', () => {
+        render(
+            <MemoryRouter>
+                <GridItem country={mockCountry} />
+            </MemoryRouter>
+        );
 
-        expect(screen.getAllByText('United States').length).toBeGreaterThan(0);
-        expect(screen.getAllByText('Americas').length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/United States/i)).toHaveLength(2); 
+        expect(screen.getAllByText(/Americas/i)).toHaveLength(2);
+
+        const img = screen.getAllByRole('img', { name: /United States/i })[0];
+        expect(img).toHaveAttribute('src', mockCountry.flags.png);
+
+        expect(screen.getAllByText(/331,002,651/)[0]).toBeInTheDocument();
+        expect(screen.getAllByText(/9,833,517/)[0]).toBeInTheDocument();
     });
 
-    it('should render country population and area formatted', () => {
-        renderComponent();
-
-        const populationText = mockCountry.population.toLocaleString();
-        const areaText = mockCountry.area.toLocaleString();
-
-        expect(screen.getAllByText(populationText)[0]).toBeInTheDocument();
-        expect(screen.getAllByText(areaText)[0]).toBeInTheDocument();
-    });
-
-    it('should render country flag image', () => {
-        renderComponent();
-
-        const image = screen.getAllByRole('img', { name: /united states/i })[0];
-        expect(image).toHaveAttribute('src', mockCountry.flags.png);
-    });
-
-    it('should link to the correct country details page', () => {
-        renderComponent();
+    it('should navigate to the correct details page on click', () => {
+        render(
+            <MemoryRouter>
+                <GridItem country={mockCountry} />
+            </MemoryRouter>
+        );
 
         const link = screen.getByRole('link');
-        expect(link).toHaveAttribute('href', `/details/${mockCountry.cca2}`);
+        expect(link).toHaveAttribute('href', '/details/US');
     });
 
-    it('should render N/A if area is missing', () => {
+    it('should render "N/A" if area is missing', () => {
         const countryWithoutArea = { ...mockCountry, area: null };
-        renderComponent(countryWithoutArea);
 
-        expect(screen.getAllByText('N/A').length).toBeGreaterThan(0);
+        render(
+            <MemoryRouter>
+                <GridItem country={countryWithoutArea} />
+            </MemoryRouter>
+        );
+
+        expect(screen.getAllByText(/N\/A/)[0]).toBeInTheDocument();
     });
 });
