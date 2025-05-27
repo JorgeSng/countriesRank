@@ -1,4 +1,6 @@
-export const countryReducer = (state = { 
+import { sortCountries, updateRegionFilters } from '../helpers/countryUtils';
+
+export const countryReducer = (state = {
     countries: [], 
     selectedRegions: [],
     filters: {
@@ -23,43 +25,15 @@ export const countryReducer = (state = {
         }
 
         case '[COUNTRIES] Sort by': {
-            if (!action.payload) return state;
-
-            const sortedCountries = [...state.countries].sort((a, b) => {
-                switch (action.payload) {
-                    case 'name':
-                        return a.name.common.localeCompare(b.name.common);
-                    case 'population':
-                        return b.population - a.population;
-                    case 'area':
-                        return (b.area || 0) - (a.area || 0);
-                    case 'region': {
-                        const regionComparison = a.region.localeCompare(b.region);
-                        if (regionComparison === 0) {
-                            return a.name.common.localeCompare(b.name.common);
-                        }
-                        return regionComparison;
-                    }
-                    default:
-                        return 0;
-                }
-            });
-
             return {
                 ...state,
-                countries: sortedCountries
+                countries: sortCountries(state.countries, action.payload)
             };
         }
 
         case '[COUNTRIES] Filter by Region': {
             const { region, selected } = action.payload;
-            let newRegions;
-
-            if (selected) {
-                newRegions = [...state.selectedRegions, region];
-            } else {
-                newRegions = state.selectedRegions.filter(r => r !== region);
-            }
+            const newRegions = updateRegionFilters(state.selectedRegions, region, selected);
 
             if (newRegions.length === 0) {
                 return {

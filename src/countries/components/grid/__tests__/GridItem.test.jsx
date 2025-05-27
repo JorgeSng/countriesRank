@@ -26,8 +26,8 @@ describe('GridItem', () => {
         const img = screen.getAllByRole('img', { name: /United States/i })[0];
         expect(img).toHaveAttribute('src', mockCountry.flags.png);
 
-        expect(screen.getAllByText(/331,002,651/)[0]).toBeInTheDocument();
-        expect(screen.getAllByText(/9,833,517/)[0]).toBeInTheDocument();
+        expect(screen.getAllByText(/331.002.651/)[0]).toBeInTheDocument();
+        expect(screen.getAllByText(/9.833.517/)[0]).toBeInTheDocument();
     });
 
     it('should navigate to the correct details page on click', () => {
