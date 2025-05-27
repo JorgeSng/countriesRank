@@ -1,3 +1,4 @@
+import React from 'react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import * as api from '../../../store/api/countriesApi';
@@ -8,6 +9,24 @@ const mockNavigate = vi.fn();
 vi.mock('react-router-dom', () => ({
     useNavigate: () => mockNavigate,
     useParams: () => ({ code: 'US' }),
+}));
+
+vi.mock('../../components/countryDetails/MainInfoComponent', () => ({
+    MainInfoComponent: (props) => (
+        <div data-testid="main-info" data-country={props.countryDetails?.name?.common}></div>
+    ),
+}));
+
+vi.mock('../../components/countryDetails/AdditionalInfoComponent', () => ({
+    AdditionalInfoComponent: (props) => (
+        <div data-testid="additional-info" data-country={props.countryDetails?.name?.common}></div>
+    ),
+}));
+
+vi.mock('../../components/countryDetails/CountryNeighborsComponent', () => ({
+    CountryNeighborsComponent: (props) => (
+        <div data-testid="neighbors" data-borders={props.borders?.join(',')}></div>
+    ),
 }));
 
 describe('CountryDetailsPage', () => {
@@ -23,7 +42,7 @@ describe('CountryDetailsPage', () => {
         });
 
         render(<CountryDetailsPage />);
-        expect(screen.getByText(/loading.../i)).toBeInTheDocument();
+        expect(screen.getByText(/Loading/i)).toBeInTheDocument();
     });
 
     it('shows error state when there is an error', () => {
@@ -34,7 +53,7 @@ describe('CountryDetailsPage', () => {
         });
 
         render(<CountryDetailsPage />);
-        expect(screen.getByText(/error loading country data/i)).toBeInTheDocument();
+        expect(screen.getByText('Error loading country data')).toBeInTheDocument();
     });
 
     it('shows error state when no countryDetails', () => {
@@ -45,7 +64,7 @@ describe('CountryDetailsPage', () => {
         });
 
         render(<CountryDetailsPage />);
-        expect(screen.getByText(/error loading country data/i)).toBeInTheDocument();
+        expect(screen.getByText(/Error loading country data/i)).toBeInTheDocument();
     });
 
     it('renders country details correctly when data is loaded', () => {
@@ -69,11 +88,17 @@ describe('CountryDetailsPage', () => {
 
         render(<CountryDetailsPage />);
 
-        const elements = screen.getAllByText(/united states/i);
-        expect(elements.length).toBeGreaterThan(0);
+        expect(screen.getByTestId('main-info')).toBeInTheDocument();
+        expect(screen.getByTestId('main-info')).toHaveAttribute('data-country', 'United States');
 
-        expect(screen.getByText(/← back/i)).toBeInTheDocument();
-        expect(screen.getByText(/country list/i)).toBeInTheDocument();
+        expect(screen.getByTestId('additional-info')).toBeInTheDocument();
+        expect(screen.getByTestId('additional-info')).toHaveAttribute('data-country', 'United States');
+
+        expect(screen.getByTestId('neighbors')).toBeInTheDocument();
+        expect(screen.getByTestId('neighbors')).toHaveAttribute('data-borders', 'CAN,MEX');
+
+        expect(screen.getByText('← Back')).toBeInTheDocument();
+        expect(screen.getByText('Country List')).toBeInTheDocument();
     });
 
     it('calls navigate(-1) when clicking Back button', () => {
@@ -96,7 +121,7 @@ describe('CountryDetailsPage', () => {
         });
 
         render(<CountryDetailsPage />);
-        fireEvent.click(screen.getByText(/← back/i));
+        fireEvent.click(screen.getByText(/Back/i));
         expect(mockNavigate).toHaveBeenCalledWith(-1);
     });
 
@@ -120,7 +145,7 @@ describe('CountryDetailsPage', () => {
         });
 
         render(<CountryDetailsPage />);
-        fireEvent.click(screen.getByText(/country list/i));
+        fireEvent.click(screen.getByText(/Country List/i));
         expect(mockNavigate).toHaveBeenCalledWith('/');
     });
 });
