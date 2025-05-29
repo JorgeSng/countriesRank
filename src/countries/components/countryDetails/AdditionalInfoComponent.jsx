@@ -2,7 +2,7 @@
 export const AdditionalInfoComponent = ({ countryDetails }) => {
     return (
         <div className="space-y-6">
-            <div className="bg-gray-800 p-6 rounded-lg">
+            <div className="p-6 rounded-lg">
                 <h3 className="text-xl font-semibold mb-4">Additional Information</h3>
                 <div className="space-y-4">
                     <div>
@@ -48,7 +48,7 @@ export const AdditionalInfoComponent = ({ countryDetails }) => {
             </div>
 
             {countryDetails.maps?.googleMaps && (
-                <div className="bg-gray-800 p-6 rounded-lg">
+                <div className="p-6 rounded-lg">
                     <h3 className="text-xl font-semibold mb-4">Location</h3>
                     <a
                         href={countryDetails.maps.googleMaps}

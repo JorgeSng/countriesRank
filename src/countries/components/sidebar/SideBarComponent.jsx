@@ -45,7 +45,7 @@ export const SideBarComponent = ({
     };
 
     return (
-        <section className="text-white bg-gray-800 md:bg-transparent rounded-lg md:rounded-none md:pr-6 space-y-4 md:space-y-6">
+        <section className="text-white md:bg-transparent rounded-lg md:rounded-none md:pr-6 space-y-4 md:space-y-6">
             <div>
                 <h3 className="font-semibold mb-2 text-sm md:text-base">Sort by</h3>
                 <SelectComponent

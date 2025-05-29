@@ -15,7 +15,7 @@ export const BorderCountryCardComponent = ({ countryCode }) => {
 
     if (isLoading) {
         return (
-            <div className="bg-gray-800 rounded-lg p-4">
+            <div className="rounded-lg p-4">
                 <div data-testid="loading-skeleton" className="w-full h-24 bg-gray-700 rounded-md mb-3 animate-pulse"></div>
                 <div className="h-4 bg-gray-700 rounded w-3/4 mx-auto animate-pulse"></div>
             </div>
@@ -24,7 +24,7 @@ export const BorderCountryCardComponent = ({ countryCode }) => {
 
     if (isError || !countryData || !countryData[0]) {
         return (
-            <div className="bg-gray-800 rounded-lg p-4">
+            <div className="rounded-lg p-4">
                 <p className="text-center text-gray-400">Error loading country</p>
             </div>
         );
@@ -35,7 +35,7 @@ export const BorderCountryCardComponent = ({ countryCode }) => {
     return (
         <div 
             onClick={() => navigate(`/details/${country.cca2}`)}
-            className="bg-gray-800 rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition-colors"
+            className="rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition-colors"
         >
             <img 
                 src={country.flags.svg} 
