@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CheckBoxComponent } from "./CheckBoxComponent";
 import { SelectComponent } from "./SelectComponent";
 import { RegionsComponent } from "./RegionsComponent";
-
+import { useCallback } from "react";
 export const SideBarComponent = ({
     sortBy,
     filterByRegion,
@@ -28,21 +28,19 @@ export const SideBarComponent = ({
         { value: 'name', label: 'Name' }
     ];
 
-    const handleSortChange = (value) => {
+    const handleSortChange = useCallback((value) => {
         setSelectedSort(value);
-        if (value) {
-            sortBy(value);
-        }
-    };
+        if (value) sortBy(value);
+    }, [sortBy]);
 
-    const handleRegionClick = (region) => {
+    const handleRegionClick = useCallback((region) => {
         const isSelected = selectedRegions.includes(region);
         filterByRegion(region, !isSelected);
-    };
+    }, [selectedRegions, filterByRegion]);
 
-    const handleStatusChange = (filterType, checked) => {
+    const handleStatusChange = useCallback((filterType, checked) => {
         toggleStatusFilter(filterType, checked);
-    };
+    }, [toggleStatusFilter]);
 
     return (
         <section className="text-white md:bg-transparent rounded-lg md:rounded-none md:pr-6 space-y-4 md:space-y-6">

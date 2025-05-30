@@ -1,4 +1,5 @@
-export const RegionsComponent = ({ regions, selectedRegions, onRegionClick }) => {
+import React from "react";
+export const RegionsComponent = React.memo(({ regions, selectedRegions, onRegionClick }) => {
     return (
         <div className="flex flex-wrap gap-2">
             {regions.map(region => (
@@ -16,4 +17,4 @@ export const RegionsComponent = ({ regions, selectedRegions, onRegionClick }) =>
             ))}
         </div>
     );
-};
+});

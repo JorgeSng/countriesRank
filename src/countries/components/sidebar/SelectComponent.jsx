@@ -1,4 +1,5 @@
-export const SelectComponent = ({ value, options, onChangeValue }) => {
+import React from "react";
+export const SelectComponent = React.memo(({ value, options, onChangeValue }) => {
     return (
         <select
             value={value}
@@ -12,4 +13,4 @@ export const SelectComponent = ({ value, options, onChangeValue }) => {
             ))}
         </select>
     );
-};
+})

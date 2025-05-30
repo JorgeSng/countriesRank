@@ -63,38 +63,11 @@ const renderCountryPage = () =>
         </MemoryRouter>
     );
 
-vi.mock('../../components/header/HeaderComponent', () => ({
-    HeaderComponent: (props) => (
-        <div data-testid="header-component">
-            <span data-testid="total-countries">{props.totalCountries}</span>
-            <input
-                data-testid="search-input"
-                value={props.searchTerm}
-                onChange={e => props.onSearchChange(e.target.value)}
-            />
-        </div>
-    ),
-}));
+vi.mock('../../components/header/HeaderComponent');
 
-vi.mock('../../components/sidebar/SideBarComponent', () => ({
-    SideBarComponent: (props) => (
-        <div data-testid="sidebar-component">
-            <button data-testid="sort-btn" onClick={() => props.sortBy('name')}>Sort by Name</button>
-            <button data-testid="region-btn" onClick={() => props.filterByRegion('Europe', true)}>Filter Europe</button>
-            <button data-testid="un-btn" onClick={() => props.toggleStatusFilter('unMember', true)}>Filter UN</button>
-        </div>
-    ),
-}));
+vi.mock('../../components/sidebar/SideBarComponent');
 
-vi.mock('../../components/grid/GridComponent', () => ({
-    GridComponent: (props) => (
-        <div data-testid="grid-component">
-            {props.countriesList.map(c => (
-                <div key={c.name.common} data-testid="country-item">{c.name.common}</div>
-            ))}
-        </div>
-    ),
-}));
+vi.mock('../../components/grid/GridComponent');
 
 describe('CountryPage', () => {
     beforeEach(() => { 

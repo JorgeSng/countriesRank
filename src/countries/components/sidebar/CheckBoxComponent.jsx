@@ -1,6 +1,6 @@
+import React from "react";
 
-
-export const CheckBoxComponent = ({ title, checked, onChangeValue }) => {
+export const CheckBoxComponent = React.memo(({ title, checked, onChangeValue }) => {
     return (
         <div className="my-2">
             <label className="flex items-center cursor-pointer">
@@ -14,4 +14,4 @@ export const CheckBoxComponent = ({ title, checked, onChangeValue }) => {
             </label>
         </div>
     );
-};
+});
