@@ -4,6 +4,7 @@ import { HeaderComponent } from "../components/header/HeaderComponent";
 import { SideBarComponent } from "../components/sidebar/SideBarComponent";
 import { GridComponent } from "../components/grid/GridComponent";
 import { useCountries } from "../hooks/useCountry.js";
+import { SkeletonGrid } from '../components/grid/skeletonGridComponent.jsx';
 
 export const CountryPage = () => {
 
@@ -30,22 +31,20 @@ export const CountryPage = () => {
         handleDataUpdate();
     }, [handleDataUpdate]);
 
-    if (isLoading) {
-        return <div className="text-white text-center mt-10">Loading countries...</div>;
-    }
+  
 
     const displayCountries = Array.isArray(countries) ? countries : countries?.countries || [];
 
     return (
         <div className='container mx-auto max-w-7xl px-4'>
-            <HeaderComponent 
-                totalCountries={displayCountries.length} 
+            <HeaderComponent
+                totalCountries={displayCountries.length}
                 searchTerm={searchTerm}
                 onSearchChange={setSearchTerm}
             />
             <div className="pt-12 flex flex-col md:flex-row gap-6 md:gap-0">
                 <div className="w-full md:w-80">
-                    <SideBarComponent 
+                    <SideBarComponent
                         sortBy={sortBy}
                         filterByRegion={filterByRegion}
                         selectedRegions={selectedRegions}
@@ -54,10 +53,14 @@ export const CountryPage = () => {
                     />
                 </div>
                 <div className="w-full">
-                    <GridComponent countriesList={displayCountries}/>
+                    {(isLoading)
+                        ? <SkeletonGrid />
+                        : <GridComponent countriesList={displayCountries} />
+                    }
                 </div>
             </div>
         </div>
+
     );
 }
 

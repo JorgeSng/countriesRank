@@ -33,7 +33,7 @@ export const BorderCountryCardComponent = ({ countryCode }) => {
     if (!country) return null;
 
     return (
-        <div 
+        <button 
             onClick={() => navigate(`/details/${country.cca2}`)}
             className="rounded-lg p-4 cursor-pointer hover:bg-gray-700 transition-colors"
         >
@@ -43,7 +43,7 @@ export const BorderCountryCardComponent = ({ countryCode }) => {
                 className="w-full h-24 object-cover rounded-md mb-3"
             />
             <p className="text-center font-medium">{country.name.common}</p>
-        </div>
+        </button>
     );
 }; 
 

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { CountryNeighborsComponent } from "../components/countryDetails/CountryNeighborsComponent";
 import { MainInfoComponent } from "../components/countryDetails/MainInfoComponent";
 import { AdditionalInfoComponent } from "../components/countryDetails/AdditionalInfoComponent";
-
+import { MainInfoSkeleton } from "../components/countryDetails/skeletons/MainInfoComponent";
+import { AdditionalInfoSkeleton } from "../components/countryDetails/skeletons/AdditionalInfoSkeleton";
 export const CountryDetailsPage = () => {
   const navigate = useNavigate();
   const { code } = useParams();
@@ -24,12 +25,14 @@ export const CountryDetailsPage = () => {
   const handleGoToCountryList = () => {
     navigate('/');
   };
-
+ 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-white">
-        <div className="text-2xl">Loading...</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <MainInfoSkeleton/>
+        <AdditionalInfoSkeleton/>
       </div>
+
     );
   }
 

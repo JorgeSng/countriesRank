@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const GridItem = ({country}) => {
     return (
         <Link to={`/details/${country.cca2}`}>
-            <div className="grid grid-cols-2 md:grid-cols-5 py-2 px-4 items-center text-white hover:bg-gray-700 transition duration-200">
+            <div className="grid grid-cols-2 md:grid-cols-5 py-2 px-4 items-center text-white hover:bg-gray-700 transition duration-200 h-[72px]">
                 <div className="flex items-center gap-3 md:hidden">
                     <img
                         src={country.flags.png}
