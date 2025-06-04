@@ -21,7 +21,7 @@ describe('HeaderComponent', () => {
     const renderHeader = (props = {}) =>
         render(
             <AuthContext.Provider value={{ authState, logout: mockLogout }}>
-                <HeaderComponent totalCountries={42} searchTerm="" onSearchChange={() => { }} {...props} />
+                <HeaderComponent totalCountries={42} searchTerm="" {...props} />
             </AuthContext.Provider>
         );
 
@@ -35,16 +35,16 @@ describe('HeaderComponent', () => {
         expect(screen.getByPlaceholderText(/search country/i)).toHaveValue('Spain');
     });
 
-    it('calls onSearchChange when typing', () => {
-        const handleChange = vi.fn();
-        renderHeader({ onSearchChange: handleChange });
+    it('calls onSearchSubmit when pressing Enter', () => {
+        const handleSubmit = vi.fn();
+        renderHeader({ searchTerm: '', onSearchSubmit: handleSubmit });
 
-        fireEvent.change(screen.getByPlaceholderText(/search country/i), {
-            target: { value: 'France' },
-        });
+        const input = screen.getByPlaceholderText(/search country/i);
+        fireEvent.change(input, { target: { value: 'France' } });
+        fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
 
-        expect(handleChange).toHaveBeenCalledWith('France');
-        expect(handleChange).toHaveBeenCalledTimes(1);
+        expect(handleSubmit).toHaveBeenCalledWith('France');
+        expect(handleSubmit).toHaveBeenCalledTimes(1);
     });
 
     it('displays the user name', () => {

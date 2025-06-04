@@ -2,9 +2,17 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import { AuthContext } from '../../../auth/context/AuthContext';
 
-export const HeaderComponent = ({totalCountries, searchTerm, onSearchChange}) => {
+import { useState, useEffect } from 'react';
+
+export const HeaderComponent = ({totalCountries, searchTerm, onSearchSubmit}) => {
     const navigate = useNavigate();
     const { authState, logout } = useContext(AuthContext);
+
+    const [inputValue, setInputValue] = useState(searchTerm || '');
+
+    useEffect(() => {
+        setInputValue(searchTerm || '');
+    }, [searchTerm]);
 
     const onLogout = () => {
         logout();
@@ -23,8 +31,13 @@ export const HeaderComponent = ({totalCountries, searchTerm, onSearchChange}) =>
                 <div className="w-full md:w-64 md:ml-4">
                     <input
                         type="text"
-                        value={searchTerm}
-                        onChange={(e) => onSearchChange(e.target.value)}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && onSearchSubmit) {
+                                onSearchSubmit(inputValue);
+                            }
+                        }}
                         placeholder="Search country..."
                         className="w-full px-4 py-2 rounded bg-gray-700 text-white border-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
                     />

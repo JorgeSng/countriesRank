@@ -7,7 +7,7 @@ export const AdditionalInfoComponent = ({ countryDetails }) => {
                 <div className="space-y-4">
                     <div>
                         <p className="text-gray-400">Area</p>
-                        <p className="font-semibold">{countryDetails.area?.toLocaleString() || 'N/A'} km²</p>
+                        <p className="font-semibold">{countryDetails.area?.toLocaleString('es-ES') || 'N/A'} km²</p>
                     </div>
                     <div>
                         <p className="text-gray-400">Currencies</p>

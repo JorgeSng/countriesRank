@@ -57,7 +57,7 @@ describe('CountryDetailsPage', () => {
     it('should show loading state', () => {
         mockApi(null, true, false);
         render(<CountryDetailsPage />);
-        expect(screen.getByText(/Loading/i)).toBeInTheDocument();
+        expect(screen.getByTestId('maininfo-skeleton')).toBeInTheDocument();
     });
 
     it('should show error state', () => {

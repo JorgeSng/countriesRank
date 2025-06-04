@@ -78,7 +78,7 @@ describe('CountryPage', () => {
         mockApiCountries(null, true);
         mockUseCountries({ countries: [] });
         renderCountryPage();
-        expect(screen.getByText(/Loading countries/i)).toBeInTheDocument();
+        expect(screen.getByTestId('skeleton-grid')).toBeInTheDocument();
     });
 
     it('should render countries and header', () => {
@@ -97,7 +97,9 @@ describe('CountryPage', () => {
         mockApiCountries();
         mockUseCountries();
         renderCountryPage();
-        fireEvent.change(screen.getByTestId('search-input'), { target: { value: 'Bra' } });
+        const input = screen.getByTestId('search-input');
+        fireEvent.change(input, { target: { value: 'Bra' } });
+        fireEvent.keyDown(input, { key: 'Enter', code: 'Enter', charCode: 13 });
         expect(mockSetSearchTerm).toHaveBeenCalledWith('Bra');
     });
 

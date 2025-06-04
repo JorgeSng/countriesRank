@@ -2,7 +2,7 @@ export const SkeletonGrid = () => {
     const skeletonItems = Array(10).fill(0); 
     return (
         <div className="w-full animate-pulse">
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-gray-400 text-sm font-semibold py-2 px-4 rounded-t-md border-b border-gray-200">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-gray-400 text-sm font-semibold py-2 px-4 rounded-t-md border-b border-gray-200" data-testid="skeleton-grid">
 
                 {['Flag', 'Name', 'Population', 'Area (km²)', 'Region'].map((title) => (
                     <div key={title} className="hidden md:block bg-gray-300 rounded h-4 w-20"></div>

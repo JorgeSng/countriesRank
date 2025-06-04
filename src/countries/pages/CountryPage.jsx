@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useGetCountriesQuery } from "../../store/api/countriesApi.js";
 import { HeaderComponent } from "../components/header/HeaderComponent";
 import { SideBarComponent } from "../components/sidebar/SideBarComponent";
@@ -7,6 +8,8 @@ import { useCountries } from "../hooks/useCountry.js";
 import { SkeletonGrid } from '../components/grid/skeletonGridComponent.jsx';
 
 export const CountryPage = () => {
+    const [searchParams, setSearchParams] = useSearchParams();
+
 
     const { data: countriesData, isLoading } = useGetCountriesQuery();
     const { 
@@ -20,6 +23,16 @@ export const CountryPage = () => {
         filterByRegion,
         toggleStatusFilter 
     } = useCountries();
+
+    useEffect(() => {
+        const query = searchParams.get('query') || '';
+        setSearchTerm(query);
+    }, [searchParams, setSearchTerm]);
+
+    const handleSearchSubmit = useCallback((value) => {
+        setSearchParams(value ? { query: value } : {});
+    }, [setSearchParams]);
+
 
     const handleDataUpdate = useCallback(() => {
         if (countriesData) {
@@ -39,8 +52,8 @@ export const CountryPage = () => {
         <div className='container mx-auto max-w-7xl px-4'>
             <HeaderComponent
                 totalCountries={displayCountries.length}
+                onSearchSubmit={handleSearchSubmit}
                 searchTerm={searchTerm}
-                onSearchChange={setSearchTerm}
             />
             <div className="pt-12 flex flex-col md:flex-row gap-6 md:gap-0">
                 <div className="w-full md:w-80">

@@ -25,7 +25,7 @@ export const MainInfoComponent = ({countryDetails}) => {
                   </div>
                   <div>
                       <p className="text-gray-400">Population</p>
-                      <p className="font-semibold">{countryDetails.population?.toLocaleString() || 'N/A'}</p>
+                      <p className="font-semibold">{countryDetails.population?.toLocaleString('es-ES') || 'N/A'}</p>
                   </div>
               </div>
           </div>

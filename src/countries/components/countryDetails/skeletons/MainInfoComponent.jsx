@@ -1,7 +1,7 @@
 export const MainInfoSkeleton = () => {
     return (
 
-        <div className="space-y-6 animate-pulse">
+        <div className="space-y-6 animate-pulse" data-testid="maininfo-skeleton">
 
             <div className="w-full h-48 bg-gray-300 rounded-lg shadow-lg" />
 
